@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [ExecuteInEditMode]
 public class ColourGenerator : MonoBehaviour {
@@ -20,10 +18,10 @@ public class ColourGenerator : MonoBehaviour {
     void Update () {
         Init ();
         UpdateTexture ();
-
         MeshGenerator m = FindObjectOfType<MeshGenerator> ();
 
-        float boundsY = m.boundsSize * m.numChunks.y;
+        float boundsY = m.boundsSize * m.numChunks.y / 2f;
+
 
         mat.SetFloat ("boundsY", boundsY);
         mat.SetFloat ("normalOffsetWeight", normalOffsetWeight);
@@ -35,10 +33,10 @@ public class ColourGenerator : MonoBehaviour {
         if (gradient != null) {
             Color[] colours = new Color[texture.width];
             for (int i = 0; i < textureResolution; i++) {
-                Color gradientCol = gradient.Evaluate (i / (textureResolution - 1f));
+                float distFromCenter = Mathf.Abs(i - (texture.width - 1) / 2f) / ((texture.width - 1) / 2f);
+                Color gradientCol = gradient.Evaluate(distFromCenter);
                 colours[i] = gradientCol;
             }
-
             texture.SetPixels (colours);
             texture.Apply ();
         }

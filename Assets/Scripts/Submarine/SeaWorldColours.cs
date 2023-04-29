@@ -50,7 +50,6 @@ public class SeaWorldColours : MonoBehaviour {
                 Color gradientCol = gradient.Evaluate (i / (textureResolution - 1f));
                 colours[i] = gradientCol;
             }
-
             texture.SetPixels (colours);
             texture.Apply ();
         }
