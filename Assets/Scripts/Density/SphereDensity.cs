@@ -14,4 +14,16 @@ public class SphereDensity : DensityGenerator {
         densityShader.SetFloat("noiseHeightMultiplier", noiseHeightMultiplier);
         return base.Generate (pointsBuffer, numPointsPerAxis, boundsSize, worldBounds, centre, offset, spacing);
     }
+    
+    public void SetRadius(float radius) {
+        this.radius = radius;
+    }
+    
+    public void SetNoiseScale(float noiseScale) {
+        this.noiseScale = noiseScale;
+    }
+    
+    public void SetNoiseHeightMultiplier(float noiseHeightMultiplier) {
+        this.noiseHeightMultiplier = noiseHeightMultiplier;
+    }
 }

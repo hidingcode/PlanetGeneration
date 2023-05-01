@@ -373,5 +373,18 @@ public class MeshGenerator : MonoBehaviour {
             }
         }
     }
-
+    
+    public void SetSettingsUpdate(bool update) {
+        settingsUpdated = update;
+    }
+    
+    public void SetBoundSize (float size) {
+        boundsSize = size;
+        settingsUpdated = true;
+    }
+    
+    public void SetNumPointsPerAxis (int num) {
+        numPointsPerAxis = num;
+        settingsUpdated = true;
+    }
 }
