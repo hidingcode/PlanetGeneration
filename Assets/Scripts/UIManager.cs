@@ -19,8 +19,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Material sphereMaterial;
     [SerializeField] private MeshGenerator meshGenerator;
     [SerializeField] private TextUIManager textUIManager;
-    
+
     [Header("Panels")]
+    [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject terrainPanel;
     [SerializeField] private GameObject planetPanel;
     
@@ -54,10 +55,23 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Slider numPointsPerAxisSlider;
 
     private void Start()
-    {
+    {   
+        InitPanels();
         InitSliders();
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.H))
+            TogglePanelVisibility();
+    }
+
+    public void InitPanels()
+    {
+        terrainPanel.SetActive(true);
+        planetPanel.SetActive(false);
+    }
+    
     public void InitSliders()
     {   
         terrainSeedSlider.value = terrainDensity.seed;
@@ -100,6 +114,14 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void TogglePanelVisibility()
+    {   
+        if(settingsPanel.activeSelf)
+            settingsPanel.SetActive(false);
+        else
+            settingsPanel.SetActive(true);
+    }
+    
     public void UpdateTerrainSeed()
     {
         int seed = (int)terrainSeedSlider.value;
