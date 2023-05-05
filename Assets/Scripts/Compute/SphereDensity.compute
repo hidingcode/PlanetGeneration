@@ -3,7 +3,9 @@
 #include "Includes/Noise.compute"
 
 float radius;
-float planetSize;
+int octaves;
+float lacunarity;
+float persistence;
 float noiseScale;
 float noiseHeightMultiplier;
 
@@ -14,12 +16,12 @@ float wormRadius = 70.0;
 float wormLength = 30.0;
 float wormDensity = 0.5;
 
-float fbm(int numLayers, float lacunarity, float persistence, float scale, float3 pos) {
+float fbm(int octaves, float lacunarity, float persistence, float scale, float3 pos) {
     float noise = 0;
     float frequency = scale / 100;
     float amplitude = 1;
 
-    for (int i = 0; i < numLayers; i ++) {
+    for (int i = 0; i < octaves; i ++) {
         float n = 1-abs(snoise(pos * frequency)*2-1);
         //n*=n;
         noise += n * amplitude;
@@ -41,27 +43,7 @@ void Density (uint3 id : SV_DispatchThreadID)
     float3 pos = centre + id * spacing - boundsSize/2;
     
     float density = radius - length(pos + offset);
-    // float worldPos = (id / float(numPointsPerAxis-1.0) - 0.5f) * planetSize;
-    
-    // float halfS = planetSize / 2;
-    // float maxD = length(float3(halfS,halfS,halfS));
-    // float fudge = 1;
-    // float density = length(pos) / (maxD + fudge) - 0.5;
-    
-    // float3 wormPos = pos;
-    //
-    // for (int i = 0; i < 3; i++) {
-    //     wormNoise += wormDensity * abs(snoise(wormPos * wormFrequency)) * wormAmplitude;
-    //     wormFrequency *= 2.0;
-    //     wormAmplitude *= 0.5;
-    //     wormPos *= 1.4;
-    //     wormPos.z += wormLength;
-    // }
-    
-    // float wormValue = smoothstep(-wormRadius, wormRadius, wormNoise);
-    // float wormDensityValue = (1.0 - wormValue) * wormDensity * wormLength;
-    // density -= wormDensityValue;
-    float noise = fbm(6, 2, 0.5, noiseScale, pos) * noiseHeightMultiplier;
+    float noise = fbm(octaves, lacunarity, persistence, noiseScale, pos) * noiseHeightMultiplier;
     density += noise;
     
     
