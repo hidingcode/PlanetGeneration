@@ -99,6 +99,7 @@ public class UIManager : MonoBehaviour
         {   
             meshGenerator.densityGenerator = terrainDensity;
             meshGenerator.mat = terrainMaterial;
+            meshGenerator.numChunks = new Vector3Int(2, 1, 2);
             meshGenerator.SetSettingsUpdate(true);
             planetPanel.SetActive(false);
             terrainPanel.SetActive(true);
@@ -108,6 +109,7 @@ public class UIManager : MonoBehaviour
         {   
             meshGenerator.densityGenerator = sphereDensity;
             meshGenerator.mat = sphereMaterial;
+            meshGenerator.numChunks = new Vector3Int(5, 5, 5);
             meshGenerator.SetSettingsUpdate(true);
             planetPanel.SetActive(true);
             terrainPanel.SetActive(false);

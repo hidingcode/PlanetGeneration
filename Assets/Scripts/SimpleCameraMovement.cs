@@ -10,13 +10,13 @@ public class SimpleCameraMovement : MonoBehaviour
     void Update()
     {   
         // Zoom in and out with mouse scroll
-        if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+        if (Input.GetKey(KeyCode.R))
         {
-            MoveForward();
+            MoveUp();
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+        else if (Input.GetKey(KeyCode.F))
         {
-            MoveBackward();
+            MoveDown();
         }
         
         if (Input.GetKey(KeyCode.W))
@@ -37,6 +37,16 @@ public class SimpleCameraMovement : MonoBehaviour
         }
     }
 
+    void MoveUp()
+    {
+        transform.position += transform.up * (camereMoveSpeed * Time.deltaTime);
+    }
+
+    void MoveDown()
+    {
+        transform.position -= transform.up * (camereMoveSpeed * Time.deltaTime);
+    }
+    
     void MoveForward()
     {
         transform.position += transform.forward * (camereMoveSpeed * Time.deltaTime);

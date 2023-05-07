@@ -9,13 +9,6 @@ float persistence;
 float noiseScale;
 float noiseHeightMultiplier;
 
-float wormNoise = 0;
-float wormFrequency = 2.0;
-float wormAmplitude = 1.0;
-float wormRadius = 70.0;
-float wormLength = 30.0;
-float wormDensity = 0.5;
-
 float fbm(int octaves, float lacunarity, float persistence, float scale, float3 pos) {
     float noise = 0;
     float frequency = scale / 100;
